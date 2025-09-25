@@ -107,4 +107,20 @@ public class InMemoryRepository {
                 .filter(loan -> loan.getStudent().getId().equals(studentId) && loan.getStatus() == LoanStatus.ACTIVE)
                 .collect(Collectors.toList());
     }
+
+
+    public boolean isStudentExist(String studentNo, String email) {
+        return students.values().stream().anyMatch(student ->
+                student.getStudentNo().equalsIgnoreCase(studentNo) ||
+                        student.getEmail().equalsIgnoreCase(email)
+        );
+    }
+
+    public Optional<Student> findStudentByStudentNoAndEmail(String studentNo, String email) {
+        return students.values().stream().filter(student ->
+                student.getStudentNo().equalsIgnoreCase(studentNo) &&
+                        student.getEmail().equalsIgnoreCase(email)
+        ).findFirst();
+    }
+
 }
